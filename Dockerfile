@@ -5,6 +5,11 @@ FROM python:3.11-slim
 # This is for lab 2 specifically
 RUN apt-get update && apt-get install -y libgl1
 
+# This is for lab 1
+RUN apt-get update && apt-get install -y \
+    abcmidi \
+    timidity 
+
 RUN apt-get update && apt-get install -y \
     graphviz \
     wget \
@@ -23,8 +28,9 @@ RUN python -m pip install --upgrade pip wheel && \
     python -m pip install "setuptools<81"
 RUN pip install --no-cache-dir --no-build-isolation mitdeeplearning==0.7.5
 COPY requirements.txt ./
+# comet-ml tqdm are fro lab1
 RUN pip install --no-cache-dir -r requirements.txt \
-    && pip install --no-cache-dir jupyterlab
+    && pip install --no-cache-dir jupyterlab comet-ml tqdm
 # For lab2
 RUN pip install --no-cache-dir opencv-python==4.13.0.92 \
      &&  pip install opencv-python-headless==4.13.0.92
